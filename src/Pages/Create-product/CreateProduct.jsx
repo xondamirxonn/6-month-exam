@@ -5,6 +5,7 @@ import { usePostProduct } from "./services/mutation/usePostProduct";
 import { useForm } from "react-hook-form";
 import { Button } from "../../Components/Buttons/Button";
 import { loadState, saveState } from "../../config/storage";
+import { toast } from "react-toastify";
 
 export const CreateProduct = () => {
   const token = loadState("user");
@@ -33,7 +34,9 @@ export const CreateProduct = () => {
       onSuccess: (data) => {
         reset();
         console.log(data);
+        toast("Mahsulot muvafaqqiyatli qo'shildi", {theme: "colored", type: "success"})
       },
+      
     });
   };
  

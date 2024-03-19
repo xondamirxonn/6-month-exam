@@ -11,9 +11,9 @@ export const Home = () => {
   const [page, setPage] = useState(1);
   const { data } = useGetAllData();
   const { data: pagenation } = useGetPagenation(page);
-  const buttons = Array(pagenation?.pages).fill(null);
+  const buttonPage = Array(pagenation?.pages).fill(null);
 
-  const paginatition = (page) => {
+  const pagenations = (page) => {
     setPage(page);
   };
 
@@ -25,20 +25,24 @@ export const Home = () => {
         <h1 className="text-4xl font-medium ">Siz uchun maxsus</h1>
 
         {!pagenation?.data.length ? (
-          <h1 className="text-5xl font-medium text-center mb-20 mt-20">Not found</h1>
+          <h1 className="text-5xl font-medium text-center mb-20 mt-20">
+            Not found
+          </h1>
         ) : (
           <div className="grid grid-cols-4 gap-3 mt-10 mb-10 ">
             {pagenation?.data?.map((item) => (
-              <Card {...item} />
+              <Card key={item.id} {...item} />
             ))}
           </div>
         )}
         <div className="flex justify-center gap-5 mb-10">
-          {buttons?.map((_, i) => (
+          {buttonPage?.map((_, i) => (
             <button
-              onClick={() => paginatition(i + 1)}
-              className={`px-[10px] py-[6px] border-[1px] border-primary rounded-[5px] bg-transparent ${
-                page === i + 1 ? " text-primary text-[24px] font-bold " : ""
+              onClick={() => pagenations(i + 1)}
+              className={`border p-2 px-4 border-black rounded-md bg-transparent ${
+                page === i + 1
+                  ? " text-red border border-red bg-red font-medium text-3xl  "
+                  : ""
               } `}
               key={i}
             >

@@ -13,8 +13,7 @@ export const Header = () => {
   const token = loadState("user");
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const {count} = useSelector((state) => state.product)
-  console.log(count);
+  const { count } = useSelector((state) => state.product);
   const ToLogin = () => {
     navigate("/auth/register");
   };
@@ -38,10 +37,15 @@ export const Header = () => {
             <Message />
             <span className="">Xabarlar</span>
           </div>
-          <Link to={"/cart"} className="flex items-center gap-1 cursor-pointer relative">
+          <Link
+            to={"/cart"}
+            className="flex items-center gap-1 cursor-pointer relative"
+          >
             <Heart />
             <span>Yoqtirganlar</span>
-            <span className="absolute bg-red text-white w-[20px] h-[20px] left-2 top-1 rounded-full mx-auto justify-center flex items-center">{count}</span>
+            <span className="absolute bg-red text-white w-[20px] h-[20px] left-2 top-0.5 rounded-full mx-auto justify-center flex items-center">
+              {count}
+            </span>
           </Link>{" "}
           {token ? (
             <Link
@@ -60,6 +64,11 @@ export const Header = () => {
               <span>Akkount</span>
             </div>
           )}
+          <select>
+            <option value="">Uz</option>
+            <option value="">Eng</option>
+            <option value="">Ru</option>
+          </select>
           {token ? (
             <Button
               onClick={() => navigate("/create-product")}

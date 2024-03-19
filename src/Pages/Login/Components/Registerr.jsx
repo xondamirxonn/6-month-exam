@@ -4,16 +4,25 @@ import { useNavigate } from "react-router-dom";
 import { Logo } from "../../../assets/Icon/Logo";
 import { Button } from "../../../Components/Buttons/Button";
 import { useRegister } from "../services/mutation/useRegister";
-import { saveState } from "../../../config/storage";
+import { loadState, saveState } from "../../../config/storage";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Cookies from "js-cookie";
 export const Registerr = () => {
+  const token = loadState("user");
+  if (token) {
+    window.location.replace("/");
+  }
   const { register, reset, handleSubmit } = useForm();
   const navigate = useNavigate();
   const { mutate } = useRegister();
   const submit = (data) => {
     mutate(data, {
       onSuccess: (data) => {
+        // Cookies.set("cookiesToken", data, {
+        //   expires: 7,
+        //   path: "/auth/login",
+        // });
         saveState("user", data);
         reset();
         navigate("/");
@@ -66,7 +75,7 @@ export const Registerr = () => {
             className="p-1.5 border-black border outline-none rounded-md "
           />
         </div>
- 
+
         <Button className="text-white mx-auto w-[100%]" variant="dark">
           Ro'yxatdan o'tish
         </Button>

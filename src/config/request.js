@@ -1,8 +1,9 @@
 import axios from "axios";
 import { loadState } from "./storage";
+import Cookies from "js-cookie";
 
 const request = axios.create({ baseURL: "http://localhost:8080/" });
-const token = loadState("user")
+const token = loadState("user");
 const PostData = (config) => {
   setTimeout(() => {
     if (
@@ -23,6 +24,10 @@ const PostData = (config) => {
 
 request.interceptors.request.use(
   (config) => {
+    // Cookies.set("cookiesToken", data, {
+    //   expires: 7,
+    //   path: "/auth/login",
+    // });
     config.headers.Authorization = `Bearer ${token?.accessToken}`;
     PostData(config);
     return config;

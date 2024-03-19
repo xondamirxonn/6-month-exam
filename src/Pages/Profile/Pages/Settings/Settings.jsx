@@ -20,7 +20,6 @@ export const Settings = () => {
   const { mutate } = useEditProfile(token?.user?.id);
   const { mutate: deleteAcc } = useDeleteAcc(token?.user?.id);
   const navigate = useNavigate();
-  console.log(token?.id);
   const id = token?.user?.id;
   const { reset, handleSubmit, register } = useForm();
   const editSubmit = (data) => {
@@ -61,7 +60,7 @@ export const Settings = () => {
     setTimeout(() => {
       localStorage.removeItem("user");
       navigate("/auth/login");
-    }, 3_000);
+    }, 1_000);
   };
 
   return (

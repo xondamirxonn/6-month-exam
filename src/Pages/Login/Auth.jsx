@@ -3,12 +3,16 @@ import { Logo } from "../../assets/Icon/Logo";
 import { useForm } from "react-hook-form";
 import { Button } from "../../Components/Buttons/Button";
 import { useRegister } from "./services/mutation/useRegister";
-import { saveState } from "../../config/storage";
+import { loadState, saveState } from "../../config/storage";
 import { useLogin } from "./services/mutation/useLogin";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { Registerr } from "./Components/Registerr";
 import { Login } from "./Components/Login";
 export const Auth = () => {
+  const token = loadState("user")
+  if(token){
+    window.location.replace("/")
+  }
   const [active, setActive] = useState(false);
   const { register, reset, handleSubmit } = useForm();
   const { mutate, isPending } = useRegister();

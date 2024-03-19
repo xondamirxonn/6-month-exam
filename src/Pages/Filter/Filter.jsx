@@ -13,9 +13,7 @@ export const Filter = () => {
     <div className="containerr pb-10">
       <div className="grid grid-cols-4 gap-4">
         {data?.map((item) => (
-          <Link to={`/product/${item.datakey}/${item.id}`}>
             <Card {...item} key={item.id} />
-          </Link>
         ))}
       </div>
     </div>

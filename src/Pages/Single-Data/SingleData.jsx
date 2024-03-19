@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useGetSingle } from "./services/query/useGetSingle";
 import { useParams } from "react-router-dom";
 import { RightArrow } from "../../assets/Icon/RightArrow";
@@ -13,6 +13,7 @@ import { Card } from "../../Components/Card/Card";
 import Profile from "../../assets/Img/profilee.webp";
 import { Button } from "../../Components/Buttons/Button";
 import { useDeleteProduct } from "./services/mutation/useDeleteProduct";
+import { Modal } from "../../Components/Modal/Modal";
 export const SingleData = () => {
   const token = loadState("user");
   const admin = token?.user?.id;
@@ -21,12 +22,14 @@ export const SingleData = () => {
   const { mutate } = useDeleteProduct(data?.datakey, data?.id);
   const { data: alldata } = useGetAllData();
   const all = alldata?.filter((item) => item.admin == admin);
+  const [open, setOpen] = useState(false);
   const deleteProduct = (datakey, id) => {
     mutate(data, {
       onSuccess: () => {
         console.log(data);
       },
     });
+
     console.log(id);
     console.log(datakey);
   };
@@ -68,6 +71,38 @@ export const SingleData = () => {
               <span className="text-red"> Shikoyat qilish</span>
             </div>
           </div>
+          <div className="mt-10 flex items-center justify-between w-full">
+            <div>
+              <h1 className="text-2xl font-medium">{data?.firstName}</h1>
+              <span>Ro’yxatdan o’tgan sanasi 2020</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <strong>xx xxx xx xx</strong>
+              <Button
+                onClick={() => setOpen(!open)}
+                variant="outline"
+                className=""
+              >
+                Ko'rsatish
+              </Button>
+              <Modal setIsOpen={setOpen} isOpen={open}>
+                <div className="p-3 flex flex-col gap-5">
+                  <h1 className="text-2xl font-medium">Telefon Raqam</h1>
+                  <strong className="text-center">{data?.phoneNumber}</strong>
+                </div>
+              </Modal>
+            </div>
+          </div>
+          <form className="mt-5">
+            <textarea
+              className=" rounded-md bg-wheat"
+              cols="110"
+              rows="10"
+            ></textarea>
+            <div className="flex justify-end mt-2">
+              <Button variant="dark">Yuborish</Button>
+            </div>
+          </form>
         </div>
         <div className="w-[30%]">
           <div className="shadow-xl rounded-md p-5 flex items-center gap-3">
@@ -107,11 +142,12 @@ export const SingleData = () => {
           <img src={Ads} alt="" className="mt-5 " />
         </div>
       </div>
+      {/* <h1 className="text-3xl font-medium">Muallifning boshqa e'lonlar</h1>
       <div className="grid grid-cols-4 gap-5">
         {admin === data?.admin
           ? all?.map((item) => <Card key={item.id} {...item} />)
           : ""}
-      </div>
+      </div> */}
     </div>
   );
 };

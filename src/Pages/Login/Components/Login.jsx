@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { saveState } from "../../../config/storage";
+import { loadState, saveState } from "../../../config/storage";
 import { useLogin } from "../services/mutation/useLogin";
 import { Button } from "../../../Components/Buttons/Button";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,10 @@ const schema = z.object({
 });
 
 export const Login = () => {
+   const token = loadState("user");
+   if (token) {
+     window.location.replace("/");
+   }
   const {
     register,
     handleSubmit,

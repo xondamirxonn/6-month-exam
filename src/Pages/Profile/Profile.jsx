@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { loadState } from "../../config/storage";
-import { Link, NavLink, Navigate, Outlet, useNavigate } from "react-router-dom";
+import {
+  Link,
+  NavLink,
+  Navigate,
+  Outlet,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import ProfileImg from "../../assets/Img/profilee.webp";
 import { Verify } from "./../../assets/Icon/Verify";
 import { Button } from "../../Components/Buttons/Button";
@@ -14,6 +21,7 @@ export const Profile = () => {
   if (!token) {
     window.location.replace("/");
   }
+
 
   const openModal = () => {
     setModal(!modal);
