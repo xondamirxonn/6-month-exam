@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.containerr{
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.active{
+  color: black;
+  border-bottom: 4px solid black;
+
+}
+
